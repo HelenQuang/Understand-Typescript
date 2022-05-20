@@ -1,11 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TodoContext } from "../store/TodoContext";
 
-interface TodoListProps {
-  todos: { id: string; text: string }[];
-  deleteTodo: (id: string) => void;
-}
-
-const TodoList: React.FC<TodoListProps> = ({ todos, deleteTodo }) => {
+const TodoList: React.FC = () => {
+  const { todos, deleteTodo } = useContext(TodoContext);
   return (
     <ul>
       {todos.map((todo) => {

@@ -1,11 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
+import { TodoContext } from "../store/TodoContext";
 
-interface addTodoProp {
-  addTodo: (text: string) => void;
-}
-
-const NewTodo: React.FC<addTodoProp> = ({ addTodo }) => {
+const NewTodo: React.FC = () => {
   const textInputRef = useRef<HTMLInputElement>(null);
+  const { addTodo } = useContext(TodoContext);
 
   return (
     <form
