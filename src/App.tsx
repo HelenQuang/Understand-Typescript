@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import TodoList from "./components/TodoList";
+import NewTodo from "./components/NewTodo";
+import { Todo } from "./todo.models";
 
-function App() {
+const App: React.FunctionComponent = () => {
+  const [todos, setTodos] = useState<Todo[]>([
+    { id: "t1", text: "Finish the course" },
+    { id: "t2", text: "Do houseworks" },
+    { id: "t3", text: "Attend meeting" },
+  ]);
+
+  const addTodo = (text: string) => {
+    setTodos((prevTodo) => [
+      ...prevTodo,
+      { id: Math.random().toString(), text: text },
+    ]);
+  };
+
+  const deleteTodo = (id: string) => {
+    setTodos((prevTodo) => {
+      return prevTodo.filter((todo) => todo.id !== id);
+    });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NewTodo addTodo={addTodo} />
+      <TodoList todos={todos} deleteTodo={deleteTodo} />
     </div>
   );
-}
+};
 
 export default App;
